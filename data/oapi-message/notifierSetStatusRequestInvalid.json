@@ -1,0 +1,1 @@
+{"requestId":"53360af5-eff3-47b7-a079-1cfaf8c85344","processingState":"Failed","packageState":"InvalidContent","details":[{"file":"prevadzkovatel.xml","line":1,"classificationCode":"Error","errorCode":"EmptyField","detail":"'IDPrevadzkovatel' must not be empty.","result":"Interupted"}],"content":"Base64EncodedContent"}

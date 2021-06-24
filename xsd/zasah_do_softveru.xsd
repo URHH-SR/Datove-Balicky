@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/zasah_do_softveru/v1" xmlns="http://urhh.gov.sk/445/2020/zasah_do_softveru/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ico">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}" />
+      <xs:length value="8" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string100">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string250">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datumCas">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:element name="HZasah_Do_Softveru">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Zasah_Do_Softveru">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDZasahSoftver" type="stringID" />
+              <xs:element minOccurs="1" name="IDPrevadzkovatel" type="ico" />
+              <xs:element minOccurs="0" name="IDKoncoveZariadenie" nillable="true" type="stringID" />
+              <xs:element minOccurs="1" name="IDSoftver" type="string100" />
+              <xs:element minOccurs="1" name="ZasahSoftverZaciatok" type="datumCas" />
+              <xs:element minOccurs="0" name="ZasahSoftverKoniec" nillable="true" type="datumCas" />
+              <xs:element minOccurs="1" name="ZasahSoftverOpis" type="string250" />
+              <xs:element minOccurs="1" name="ZasahSoftverUzivatel" type="string50" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

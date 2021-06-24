@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/identifikacia_hraca/v1" xmlns="http://urhh.gov.sk/445/2020/identifikacia_hraca/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ico">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}" />
+      <xs:minLength value="8" />
+      <xs:maxLength value="8" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="psc">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{5,10}" />
+      <xs:minLength value="5" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string3">
+    <xs:restriction base="xs:string">
+      <xs:length value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string20">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string100">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datumCas">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:element name="HIdentifikacia_Hraca">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Identifikacia_Hraca">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDHraca" type="stringID" />
+              <xs:element minOccurs="1" name="IDPrevadzkovatel" type="ico" />
+              <xs:element minOccurs="1" name="MenoHraca" type="string50" />
+              <xs:element minOccurs="1" name="PriezviskoHraca" type="string50" />
+              <xs:element minOccurs="0" name="TitulHraca" nillable="true" type="string10" />
+              <xs:element minOccurs="1" name="RodneCislo" type="string20" />
+              <xs:element minOccurs="0" name="Ulica" nillable="true" type="string100" />
+              <xs:element minOccurs="0" name="CisloOrientacne" nillable="true" type="string20" />
+              <xs:element minOccurs="1" name="CisloSupisne" type="string10" />
+              <xs:element minOccurs="1" name="PSC" type="psc" />
+              <xs:element minOccurs="1" name="Obec" type="string100" />
+              <xs:element minOccurs="1" name="StatnaPrislusnost" type="string3" />
+              <xs:element minOccurs="1" name="DatumRegistracie" type="datumCas" />
+              <xs:element minOccurs="0" name="DatumZrusRegistracie" nillable="true" type="datumCas" />
+              <xs:element minOccurs="1" name="PrihlasovacieMeno" type="string50" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

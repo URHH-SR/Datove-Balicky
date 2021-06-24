@@ -1,0 +1,233 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "operatorAPI",
+    "description": "<a href=\"/swagger/v1/swagger.json\">Json description</a>",
+    "version": "v1"
+  },
+  "paths": {
+    "/oapi/reporting/v1/notifier/setStatus": {
+      "post": {
+        "tags": [
+          "Notifier"
+        ],
+        "summary": "",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotifierSetStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidContract",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProcessState": {
+        "enum": [
+          "Planned",
+          "Processing",
+          "Processed",
+          "Failed"
+        ],
+        "type": "string"
+      },
+      "PackageState": {
+        "enum": [
+          "Processing",
+          "ProcessedSuccessfully",
+          "Rollbacked",
+          "InvalidFormat",
+          "InvalidContent",
+          "InvalidSigningCertificate",
+          "InvalidEncryptingCertificate",
+          "InvalidZipFile",
+          "InvalidPackageUrl"
+        ],
+        "type": "string"
+      },
+      "ClassificationCode": {
+        "enum": [
+          "Error",
+          "Warning",
+          "Information"
+        ],
+        "type": "string"
+      },
+      "ErrorCode": {
+        "enum": [
+          "InvalidField",
+          "EmptyField",
+          "InvalidDataType",
+          "MissingFile",
+          "MissingPackage",
+          "InvalidFileSign",
+          "InvalidFileEncryption",
+          "InvalidFileCompresion",
+          "NonrelativePackage",
+          "InconsistentPackage",
+          "InvalidRowCount"
+        ],
+        "type": "string"
+      },
+      "StatusDetail": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "nullable": true
+          },
+          "line": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "classificationCode": {
+            "$ref": "#/components/schemas/ClassificationCode"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "result": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotifierSetStatusRequest": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "processingState": {
+            "$ref": "#/components/schemas/ProcessState"
+          },
+          "packageState": {
+            "$ref": "#/components/schemas/PackageState"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StatusDetail"
+            },
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmptyResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": ""
+      },
+      "FaultCode": {
+        "enum": [
+          "ErrInvalidContract",
+          "ErrInvalidRequestId",
+          "ErrInvalidCertificate",
+          "ErrInternalServerError"
+        ],
+        "type": "string"
+      },
+      "Fault": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/FaultCode"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FaultResponse": {
+        "type": "object",
+        "properties": {
+          "fault": {
+            "$ref": "#/components/schemas/Fault"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

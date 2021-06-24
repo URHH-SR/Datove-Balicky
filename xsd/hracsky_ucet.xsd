@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/hracsky_ucet/v1" xmlns="http://urhh.gov.sk/445/2020/hracsky_ucet/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datumCas">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:simpleType name="typTransakcie">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+      <xs:enumeration value="10"/>
+	  <xs:enumeration value="11"/>
+	  <xs:enumeration value="12"/>
+	  <xs:enumeration value="13"/>
+	  <xs:enumeration value="14"/>
+	  <xs:enumeration value="15"/>
+	  <xs:enumeration value="16"/>
+	  <xs:enumeration value="17"/>
+	  <xs:enumeration value="18"/>
+	  <xs:enumeration value="19"/>
+	  <xs:enumeration value="20"/>
+	  <xs:enumeration value="21"/>
+	  <xs:enumeration value="22"/>
+	  <xs:enumeration value="23"/>
+	  <xs:enumeration value="24"/>
+	  <xs:enumeration value="25"/>
+	  <xs:enumeration value="26"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="penaznaSuma14">
+    <xs:restriction base="xs:decimal">
+      <xs:maxExclusive value="1000000000000"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="HHracsky_Ucet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Hracsky_Ucet">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDHracskyUcet" type="stringID" />
+              <xs:element minOccurs="1" name="IDHraca" type="stringID" />
+              <xs:element minOccurs="0" name="IDHry" nillable="true" type="string50" />
+              <xs:element minOccurs="1" name="DatumTransakcie" type="datumCas" />
+              <xs:element minOccurs="1" name="TypTransakcie" type="typTransakcie" />
+              <xs:element minOccurs="1" name="VyskaTransakcie" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="Kredit" type="penaznaSuma14" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

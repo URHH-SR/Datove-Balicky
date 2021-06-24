@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/prilezitost/v1" xmlns="http://urhh.gov.sk/445/2020/prilezitost/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string250">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datumCas">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:simpleType name="prilezitostStav">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="HPrilezitost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Prilezitost">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDPrilezitost" type="stringID" />
+              <xs:element minOccurs="1" name="IDUdalost" type="stringID" />
+              <xs:element minOccurs="1" name="PrilezitostNazov" type="string250" />
+              <xs:element minOccurs="1" name="PrilezitostZaciatok" type="datumCas" />
+              <xs:element minOccurs="1" name="PrilezitostKoniec" type="datumCas" />
+              <xs:element minOccurs="0" name="PrilezitostStav" nillable="true" type="prilezitostStav" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,1677 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "reportingAPI",
+    "description": "<a href=\"/swagger/v1/swagger.json\">Json description</a>",
+    "version": "v1"
+  },
+  "paths": {
+    "/rapi/diagnostics/v1/diagnostics/isAlive": {
+      "post": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "Metóda k opakovanému získavaniu stavu aplikačného rozhrania. Nahrazena metódou /health.",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IsAliveRequest"
+              },
+              "example": {
+  "systemState": "Ok",
+  "nextClientShutdown": "2021-06-15T12:43:42.4795416+02:00",
+  "isAlive": true
+}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IsAliveResponse"
+                },
+                "example": {
+  "systemState": "Ok",
+  "nextServerShutdown": "2021-06-16T12:43:42.4796458+02:00",
+  "isAlive": true
+}
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidContract",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/rapi/diagnostics/v1/diagnostics/version": {
+      "post": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "Metóda k získaniu verzie aplikačného rozhrania. Nahrazena metódou /health.",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmptyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionResponse"
+                },
+                "example": {
+  "version": "1.0.0.0",
+  "lastUpdate": "2021-06-15T12:43:42.4807112+02:00"
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest - ErrInvalidContract"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/rapi/enumerators/v1/processStates/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka možných stavov procesu spracovania na serveri",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessState"
+                  }
+                },
+                "example": [
+  "Planned",
+  "Processing",
+  "Processed",
+  "Failed"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/packageStates/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka možných stavov výsledku spracovania dátového balíčka prevádzkovateľa hazardnej hry",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageState"
+                  }
+                },
+                "example": [
+  "Processing",
+  "ProcessedSuccessfully",
+  "Rollbacked",
+  "InvalidFormat",
+  "InvalidContent",
+  "InvalidSigningCertificate",
+  "InvalidEncryptingCertificate",
+  "InvalidZipFile",
+  "InvalidPackageUrl"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/systemStates/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka možných stavov klientskeho alebo serverového technického prostredia",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemState"
+                  }
+                },
+                "example": [
+  "Ok",
+  "BeforeShutdown",
+  "AfterShutdown",
+  "UnexpectedShutdown"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/classificationCodes/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka klasifikácie detailu správ pri spracovaní",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClassificationCode"
+                  }
+                },
+                "example": [
+  "Error",
+  "Warning",
+  "Information"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/errorCodes/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka chýb",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ErrorCode"
+                  }
+                },
+                "example": [
+  "InvalidField",
+  "EmptyField",
+  "InvalidDataType",
+  "MissingFile",
+  "MissingPackage",
+  "InvalidFileSign",
+  "InvalidFileEncryption",
+  "InvalidFileCompresion",
+  "NonrelativePackage",
+  "InconsistentPackage",
+  "InvalidRowCount"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/errorCodes/translate": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Preloženie hodnoty číselníka chýb",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "EmptyField"
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidContract",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/currencyCodes/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka mien podľa medzinárodnej normy ISO 4217 Codes for the representation of currencies",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyCode"
+                  }
+                },
+                "example": [
+  "EUR"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/currencyCodes/translate": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Preloženie hodnoty číselníka mien",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "EUR"
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidContract",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/enumerators/v1/packageKinds/list": {
+      "get": {
+        "tags": [
+          "Enumerators"
+        ],
+        "summary": "Získanie číselníka druhov dátových balíčkov prevádzkovateľa hazardnej hry",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageKind"
+                  }
+                },
+                "example": [
+  "CharitativnaLoteria",
+  "StolovaHra",
+  "StavkovaHra",
+  "HazardnaHraNaVP",
+  "HazardnaHraNaTV",
+  "HazardnaHraNaTZ",
+  "HazardnaHraNaITZ",
+  "CiselnaLoteria",
+  "Bingo",
+  "InternetovaHra"
+]
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Metóda k opakovanému získavaniu stavu aplikačného rozhrania",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthReport"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthReport"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/reporting/v1/package/upload": {
+      "post": {
+        "tags": [
+          "Reporting"
+        ],
+        "summary": "Odovzdáva dátový balíček prevádzkovateľa hazardnej hry na server",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageUploadRequest"
+              },
+              "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2",
+  "operatorCode": "12345678",
+  "packageVersion": "01",
+  "packageKind": "CharitativnaLoteria",
+  "packageTimeFrameStartInclusive": "2021-06-14T00:00:00+02:00",
+  "packageTimeFrameEndExclusive": "2021-06-15T00:00:00+02:00",
+  "packageContent": "",
+  "packageUri": "https://example.com/8f430525-c9c5-4caf-81ef-728b20e861c2.zip.p7e.p7s",
+  "packageStamp": "2021-06-15T12:43:42.4937839+02:00"
+}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                },
+                "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2",
+  "statusCode": "Received"
+}
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidRequestId",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/reporting/v1/package/getStatus": {
+      "post": {
+        "tags": [
+          "Reporting"
+        ],
+        "summary": "Získanie stavu o spracovaní dátového balíčka prevádzkovateľa hazardnej hry",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestIdRequest"
+              },
+              "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2"
+}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStatusResponse"
+                },
+                "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2",
+  "processingState": "Planned",
+  "packageState": "Processing",
+  "details": null
+}
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidRequestId",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/reporting/v1/package/rollback": {
+      "post": {
+        "tags": [
+          "Reporting"
+        ],
+        "summary": "Vrátenie spracovania dátového balíčka prevádzkovateľa hazardnej hry, odstránenie zo spracovania na serveri",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestIdRequest"
+              },
+              "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2"
+}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                },
+                "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2",
+  "statusCode": "Accepted"
+}
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidRequestId",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/reporting/v1/package/getRollbackStatus": {
+      "post": {
+        "tags": [
+          "Reporting"
+        ],
+        "summary": "Vrátenie stavu zpracovania rollbacku pre balíček",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestIdRequest"
+              },
+              "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2"
+}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                },
+                "example": {
+  "requestId": "8f430525-c9c5-4caf-81ef-728b20e861c2",
+  "statusCode": "Accepted"
+}
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidRequestId",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rapi/reporting/v1/package/list": {
+      "post": {
+        "tags": [
+          "Reporting"
+        ],
+        "summary": "Získanie zoznamu dátových balíčkov prevádzkovateľa hazardnej hry",
+        "description": "Volanie tejto metódy predpokladá úspešné overenie voči aplikačnému rozhraniu",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidContract",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInvalidCertificate",
+    "data": []
+  }
+}
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaultResponse"
+                },
+                "example": {
+  "fault": {
+    "code": "ErrInternalServerError",
+    "data": []
+  }
+}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FaultCode": {
+        "enum": [
+          "ErrInvalidContract",
+          "ErrInvalidRequestId",
+          "ErrInvalidCertificate",
+          "ErrInternalServerError"
+        ],
+        "type": "string"
+      },
+      "Fault": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/FaultCode"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FaultResponse": {
+        "type": "object",
+        "properties": {
+          "fault": {
+            "$ref": "#/components/schemas/Fault"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PackageKind": {
+        "enum": [
+          "CharitativnaLoteria",
+          "StolovaHra",
+          "StavkovaHra",
+          "HazardnaHraNaVP",
+          "HazardnaHraNaTV",
+          "HazardnaHraNaTZ",
+          "HazardnaHraNaITZ",
+          "CiselnaLoteria",
+          "Bingo",
+          "InternetovaHra"
+        ],
+        "type": "string"
+      },
+      "ProcessState": {
+        "enum": [
+          "Planned",
+          "Processing",
+          "Processed",
+          "Failed"
+        ],
+        "type": "string"
+      },
+      "StatusCode": {
+        "enum": [
+          "Awaiting",
+          "Received",
+          "Denied",
+          "Accepted"
+        ],
+        "type": "string"
+      },
+      "ClassificationCode": {
+        "enum": [
+          "Error",
+          "Warning",
+          "Information"
+        ],
+        "type": "string"
+      },
+      "ErrorCode": {
+        "enum": [
+          "InvalidField",
+          "EmptyField",
+          "InvalidDataType",
+          "MissingFile",
+          "MissingPackage",
+          "InvalidFileSign",
+          "InvalidFileEncryption",
+          "InvalidFileCompresion",
+          "NonrelativePackage",
+          "InconsistentPackage",
+          "InvalidRowCount"
+        ],
+        "type": "string"
+      },
+      "StatusDetail": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "nullable": true
+          },
+          "line": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "classificationCode": {
+            "$ref": "#/components/schemas/ClassificationCode"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "result": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SystemState": {
+        "enum": [
+          "Ok",
+          "BeforeShutdown",
+          "AfterShutdown",
+          "UnexpectedShutdown"
+        ],
+        "type": "string"
+      },
+      "IsAliveRequest": {
+        "type": "object",
+        "properties": {
+          "systemState": {
+            "$ref": "#/components/schemas/SystemState"
+          },
+          "nextClientShutdown": {
+            "type": "string",
+            "description": "Deklarácia odstávky klientskeho systému",
+            "format": "date-time"
+          },
+          "isAlive": {
+            "type": "boolean",
+            "description": "Aktuálny súhrnný stav klientskeho systému"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IsAliveResponse": {
+        "type": "object",
+        "properties": {
+          "systemState": {
+            "$ref": "#/components/schemas/SystemState"
+          },
+          "nextServerShutdown": {
+            "type": "string",
+            "description": "Deklarácia odstávky serveroveho systému",
+            "format": "date-time"
+          },
+          "isAlive": {
+            "type": "boolean",
+            "description": "Aktuálny súhrnný stav serveroveho systému"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmptyRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "VersionResponse": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastUpdate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PackageState": {
+        "enum": [
+          "Processing",
+          "ProcessedSuccessfully",
+          "Rollbacked",
+          "InvalidFormat",
+          "InvalidContent",
+          "InvalidSigningCertificate",
+          "InvalidEncryptingCertificate",
+          "InvalidZipFile",
+          "InvalidPackageUrl"
+        ],
+        "type": "string"
+      },
+      "CurrencyCode": {
+        "enum": [
+          "EUR"
+        ],
+        "type": "string"
+      },
+      "HealthStatus": {
+        "enum": [
+          "Unhealthy",
+          "Degraded",
+          "Healthy"
+        ],
+        "type": "string"
+      },
+      "HealthReportEntry": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "duration": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "exception": {
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/HealthStatus"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HealthReport": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/HealthReportEntry"
+            },
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/HealthStatus"
+          },
+          "totalDuration": {
+            "type": "string",
+            "format": "date-span"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PackageUploadRequest": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "description": "Unikátny kód požiadavky",
+            "format": "uuid"
+          },
+          "operatorCode": {
+            "type": "string",
+            "description": "IČO prevádzkovateľa hazardnej hry",
+            "nullable": true
+          },
+          "packageVersion": {
+            "type": "string",
+            "description": "Verzia dátového balíčka prevádzkovateľa hazardnej hry",
+            "nullable": true
+          },
+          "packageKind": {
+            "$ref": "#/components/schemas/PackageKind"
+          },
+          "packageTimeFrameStartInclusive": {
+            "type": "string",
+            "description": "Dátum a čas začiatku vykazovaného časového rámca",
+            "format": "date-time"
+          },
+          "packageTimeFrameEndExclusive": {
+            "type": "string",
+            "description": "Dátum a čas ukončenia vykazovaného časového rámca",
+            "format": "date-time"
+          },
+          "packageContent": {
+            "type": "string",
+            "description": "Obsah dátového balíčka prevádzkovateľa hazardnej hry (base64)\r\n\r\nKeď je to možné, neposielajte balíčky tímto spôsobom,ale použite PackageUri a systém si data stiahne sám.",
+            "nullable": true
+          },
+          "packageUri": {
+            "type": "string",
+            "description": "Odkaz na obsah dátového balíčka prevádzkovateľa hazardnej hry",
+            "nullable": true
+          },
+          "packageStamp": {
+            "type": "string",
+            "description": "Doba a čas generovania dátového balíčka prevádzkovateľa hazardnej hry",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatusResponse": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "description": "Unikátny kód požiadavky",
+            "format": "uuid"
+          },
+          "statusCode": {
+            "$ref": "#/components/schemas/StatusCode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestIdRequest": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "description": "Unikátny kód dátového balíčka",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetStatusResponse": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "processingState": {
+            "$ref": "#/components/schemas/ProcessState"
+          },
+          "packageState": {
+            "$ref": "#/components/schemas/PackageState"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StatusDetail"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ListRequest": {
+        "type": "object",
+        "properties": {
+          "operatorCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatorPackage": {
+        "type": "object",
+        "properties": {
+          "packageGuid": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "packageVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "packageKind": {
+            "$ref": "#/components/schemas/PackageKind"
+          },
+          "packageTimeFrameStartInclusive": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "packageTimeFrameEndExclusive": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "processingState": {
+            "$ref": "#/components/schemas/ProcessState"
+          },
+          "packageState": {
+            "$ref": "#/components/schemas/PackageState"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ListResponse": {
+        "type": "object",
+        "properties": {
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatorPackage"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Diagnostics",
+      "description": "Metódy umožňujúce diagnostiku stavu aplikačného rozhrania"
+    },
+    {
+      "name": "Enumerators",
+      "description": "Metódy umožňujúce zdieľanú správu číselníkov"
+    },
+    {
+      "name": "Health",
+      "description": "Standardizace způsobu zjištění stavu služby - náhrada za původní diagnostics"
+    },
+    {
+      "name": "Reporting",
+      "description": "Metódy umožňujúce prenos dátových balíčkov prevádzkovateľa hazardnej hry zo strany prevádzkovateľa hazardnej hry na server"
+    }
+  ]
+}

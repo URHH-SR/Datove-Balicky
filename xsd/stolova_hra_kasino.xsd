@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/stolova_hra_kasino/v1" xmlns="http://urhh.gov.sk/445/2020/stolova_hra_kasino/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="penaznaSuma14">
+    <xs:restriction base="xs:decimal">
+      <xs:maxExclusive value="1000000000000"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datum">
+    <xs:restriction base="xs:date" />
+  </xs:simpleType>
+  <xs:element name="HStolova_Hra_Kasino">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Stolova_Hra_Kasino">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDStolovaHra" type="stringID" />
+              <xs:element minOccurs="1" name="IDHraciStol" type="stringID" />
+              <xs:element minOccurs="1" name="HraciDen" type="datum" />
+              <xs:element minOccurs="1" name="ZetonZaciatok" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="ZetonKoniec" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="HotovostZaciatok" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="HotovostKoniec" type="penaznaSuma14" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

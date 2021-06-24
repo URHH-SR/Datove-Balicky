@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/tiket-loteriovy/v1" xmlns="http://urhh.gov.sk/445/2020/tiket-loteriovy/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="intCislo">
+    <xs:restriction base="xs:int" />
+  </xs:simpleType>
+  <xs:simpleType name="string20">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string250">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="penaznaSuma14">
+    <xs:restriction base="xs:decimal">
+      <xs:maxExclusive value="1000000000000"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datumCas">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:simpleType name="sposobUzavretia">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="doplnkovaHra">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="J"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="stavTiketu">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+	  <xs:enumeration value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="HTiket-loteriovy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Tiket-loteriovy">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDTiket" type="stringID" />
+              <xs:element minOccurs="1" name="IDLicencia" type="stringID" />
+              <xs:element minOccurs="1" name="IdentTiket" type="string250" />
+              <xs:element minOccurs="1" name="SposobUzavretia" type="sposobUzavretia" />
+              <xs:element minOccurs="1" name="UzavretieCas" type="datumCas" />
+              <xs:element minOccurs="0" name="IDKoncoveZariadenie" nillable="true" type="stringID" />
+              <xs:element minOccurs="0" name="IDHracskyUcet" nillable="true" type="stringID" />
+              <xs:element minOccurs="1" name="CelkovyVklad" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="PocetZrebovani" type="intCislo" />
+              <xs:element minOccurs="0" name="DoplnkovaHra" nillable="true" type="doplnkovaHra" />
+              <xs:element minOccurs="0" name="DoplnkovaHraCislo" nillable="true" type="intCislo" />
+              <xs:element minOccurs="0" name="PremioveZrebovanie" nillable="true" type="string20" />
+              <xs:element minOccurs="0" name="System" nillable="true" type="string50" />
+              <xs:element minOccurs="1" name="TipovaneCisla" type="string250" />
+              <xs:element minOccurs="1" name="StavTiketu" type="stavTiketu" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

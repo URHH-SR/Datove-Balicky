@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://urhh.gov.sk/445/2020/tiket-s_kombinacia/v1" xmlns="http://urhh.gov.sk/445/2020/tiket-s_kombinacia/v1">
+  <xs:simpleType name="stringID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}.*" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="kurz10">
+    <xs:restriction base="xs:decimal">
+      <xs:maxExclusive value="100000000"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="penaznaSuma14">
+    <xs:restriction base="xs:decimal">
+      <xs:maxExclusive value="1000000000000"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="stavKombinacie">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+	  <xs:enumeration value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="HTiket-s_kombinacia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Tiket-s_kombinacia">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="IDKombinacia" type="stringID" />
+              <xs:element minOccurs="1" name="IDTiket" type="stringID" />
+              <xs:element minOccurs="1" name="Stavka" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="Kurz" type="kurz10" />
+              <xs:element minOccurs="0" name="KurzoveZvyhodnenie" nillable="true" type="kurz10" />
+              <xs:element minOccurs="1" name="MoznaVyhra" type="penaznaSuma14" />
+              <xs:element minOccurs="0" name="Vyhra" nillable="true" type="penaznaSuma14" />
+              <xs:element minOccurs="1" name="StavKombinacie" type="stavKombinacie" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
